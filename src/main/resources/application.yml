@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: RugbyManager
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rugbydb
+    username: user
+    password: password
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
