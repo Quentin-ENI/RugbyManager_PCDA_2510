@@ -2,9 +2,9 @@ spring:
   application:
     name: RugbyManager
   datasource:
-    url: jdbc:postgresql://localhost:5432/rugbydb
-    username: user
-    password: password
+    url: jdbc:postgresql://localhost:5433/RUGBY_DB
+    username: admin
+    password: Azerty,123
   jpa:
     show-sql: true
     hibernate:

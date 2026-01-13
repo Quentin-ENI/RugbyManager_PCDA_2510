@@ -1,0 +1,16 @@
+services:
+  database:
+    container_name: postgres_rugby_manager
+    image: 'postgres:17.7'
+    environment:
+      - POSTGRES_DB=RUGBY_DB
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Azerty,123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:

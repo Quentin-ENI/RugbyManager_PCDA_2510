@@ -17,6 +17,10 @@ public class PlayerService {
 
     private PlayerRepository playerRepository;
 
+//    public PlayerRepository(PlayerRepository playerRepository) {
+//        this.playerRepository = playerRepository;
+//    }
+
     public Player createPlayer() {
         Player player = Player
                 .builder()

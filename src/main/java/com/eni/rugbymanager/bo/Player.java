@@ -26,4 +26,12 @@ public class Player {
 
     @Column(nullable = false)
     private Date birthdate;
+
+    @OneToOne(
+            orphanRemoval = false,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "FK_PLAYER_ADDRESS")
+    private Address address;
 }
