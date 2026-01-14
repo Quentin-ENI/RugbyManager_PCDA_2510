@@ -16,6 +16,7 @@ import java.util.Date;
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PLAYER_ID")
     private Long id;
 
     @Column(nullable = false, length = 100)
@@ -34,4 +35,7 @@ public class Player {
     )
     @JoinColumn(name = "FK_PLAYER_ADDRESS")
     private Address address;
+
+    @ManyToOne
+    private Team team;
 }
