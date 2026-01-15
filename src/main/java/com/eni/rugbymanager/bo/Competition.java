@@ -1,10 +1,7 @@
 package com.eni.rugbymanager.bo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"teams"})
 @Builder
 @Entity
 public class Competition {
@@ -23,6 +21,6 @@ public class Competition {
     private String name;
 
     @Builder.Default
-    @ManyToMany
+    @ManyToMany(mappedBy="competitions") // Ajouté
     private List<Team> teams = new ArrayList<>();
 }

@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"players", "competitions"})
 @Builder
 @Entity
 //@IdClass(TeamKey.class)       // Méthode 1
@@ -27,20 +28,22 @@ public class Team {
     private Date creationDate;
 
     @OneToMany(
+            mappedBy = "team",  // Ajouté
             orphanRemoval = false,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY
     )
-    @JoinColumns({
-            @JoinColumn(name="team_name", referencedColumnName="name"),
-            @JoinColumn(name="team_country", referencedColumnName="country")
-    })
     private List<Player> players;
 
-    @ManyToOne(optional = false)
-    private Gender gender;
-
     @Builder.Default
-    @ManyToMany(mappedBy="teams")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "competition_teams",
+            joinColumns = {
+                    @JoinColumn(name = "team_name", referencedColumnName = "name"),
+                    @JoinColumn(name = "team_country", referencedColumnName = "country")
+            },
+            inverseJoinColumns = @JoinColumn(name = "competition_id")
+    )
     private List<Competition> competitions = new ArrayList();
 }

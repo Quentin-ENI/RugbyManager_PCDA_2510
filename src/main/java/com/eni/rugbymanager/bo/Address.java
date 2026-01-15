@@ -24,5 +24,5 @@ public class Address {
 
     @ToString.Exclude
     @OneToOne(mappedBy="address")
-    private Player player;
+    private Person person;
 }

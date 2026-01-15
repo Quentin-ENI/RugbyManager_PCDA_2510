@@ -1,13 +1,13 @@
 package com.eni.rugbymanager.repository;
 
-import com.eni.rugbymanager.bo.Address;
-import com.eni.rugbymanager.bo.Player;
+import com.eni.rugbymanager.bo.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;

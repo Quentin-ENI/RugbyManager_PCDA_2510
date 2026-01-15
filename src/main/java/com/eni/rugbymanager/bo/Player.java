@@ -2,6 +2,7 @@ package com.eni.rugbymanager.bo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 
@@ -9,33 +10,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Builder
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Entity
-public class Player {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PLAYER_ID")
-    private Long id;
-
-    @Column(nullable = false, length = 100)
-    private String firstName;
-
-    @Column(nullable = false, length = 200)
-    private String lastName;
-
+public class Player extends Person {
     @Column(nullable = false)
-    private Date birthdate;
-
-    @OneToOne(
-            orphanRemoval = false,
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(name = "FK_PLAYER_ADDRESS")
-    private Address address;
-
-    @ManyToOne
-    private Team team;
+    private String position;
 }
