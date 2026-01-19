@@ -7,4 +7,5 @@ import java.util.List;
 public interface PlayerService {
     List<Player> getAll();
     Player getById(long id);
+    Player createPlayer(Player player);
 }

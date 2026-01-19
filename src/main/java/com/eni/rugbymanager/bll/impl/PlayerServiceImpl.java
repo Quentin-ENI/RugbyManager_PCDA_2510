@@ -24,4 +24,9 @@ public class PlayerServiceImpl implements PlayerService {
     public Player getById(long id) {
         return playerRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Player createPlayer(Player player) {
+        return this.playerRepository.save(player);
+    }
 }
