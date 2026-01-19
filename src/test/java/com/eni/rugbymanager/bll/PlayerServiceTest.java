@@ -1,5 +1,6 @@
 package com.eni.rugbymanager.bll;
 
+import com.eni.rugbymanager.bll.impl.PlayerServiceImpl;
 import com.eni.rugbymanager.bo.Player;
 import com.eni.rugbymanager.repository.PlayerRepository;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlayerServiceTest {
 
     @Autowired
-    private PlayerService playerService;
+    private PlayerServiceImpl playerService;
 
     @Autowired
     private PlayerRepository playerRepository;
