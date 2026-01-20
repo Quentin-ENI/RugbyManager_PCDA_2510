@@ -1,6 +1,9 @@
 package com.eni.rugbymanager.bo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -21,12 +24,17 @@ public class Person {
     private Long id;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "{person.first-name.not-blank}")
+    @NotNull(message = "Le prénom ne peut pas être null")
     private String firstName;
 
     @Column(nullable = false, length = 200)
+    @NotBlank(message = "Le nom de famille doit être renseigné")
+    @NotNull(message = "Le nom de famille ne peut pas être null")
     private String lastName;
 
     @Column(nullable = false)
+    @Past(message = "La date de naissance ne peut pas se situer dans le futur")
     private Date birthdate;
 
     @OneToOne(
