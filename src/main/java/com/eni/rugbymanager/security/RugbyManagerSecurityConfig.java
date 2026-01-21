@@ -34,8 +34,6 @@ public class RugbyManagerSecurityConfig {
                     .anyRequest().denyAll()
         );
 
-        http.httpBasic(Customizer.withDefaults());
-
         http.csrf(csrf -> {
             csrf.disable();
         });
