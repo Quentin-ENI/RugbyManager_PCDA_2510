@@ -11,3 +11,7 @@ spring:
       ddl-auto: update
   messages:
     encoding: UTF-8
+
+app:
+  jwt:
+    secret: 2437405c593346403d2b3d33483d70514f40754665547d416145485b3b

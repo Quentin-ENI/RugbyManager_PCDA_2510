@@ -1,27 +1,26 @@
 package com.eni.rugbymanager.security;
 
+import jakarta.servlet.Filter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class RugbyManagerSecurityConfig {
-    @Bean
-    UserDetailsManager userDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-        jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT pseudo, password, 1 FROM users WHERE pseudo = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT pseudo, authority FROM users WHERE pseudo = ?");
+    @Autowired
+    private Filter jwtAuthenticationFilter;
 
-        return jdbcUserDetailsManager;
-    }
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) {
@@ -31,6 +30,7 @@ public class RugbyManagerSecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/players").hasAnyRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/players").hasAnyRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/players").hasAnyRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                     .anyRequest().denyAll()
         );
 
@@ -38,6 +38,15 @@ public class RugbyManagerSecurityConfig {
 
         http.csrf(csrf -> {
             csrf.disable();
+        });
+
+        // Connexion de l'utilisation
+        http.authenticationProvider(authenticationProvider);
+
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.sessionManagement(session -> {
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         });
 
         return http.build();
