@@ -15,3 +15,10 @@ spring:
 app:
   jwt:
     secret: 2437405c593346403d2b3d33483d70514f40754665547d416145485b3b
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /rugbymanager/api

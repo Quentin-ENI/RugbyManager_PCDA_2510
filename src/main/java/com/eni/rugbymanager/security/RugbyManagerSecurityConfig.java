@@ -31,6 +31,9 @@ public class RugbyManagerSecurityConfig {
                     .requestMatchers(HttpMethod.PUT, "/players").hasAnyRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/players").hasAnyRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/rugbymanager/api").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/rugbymanager/swagger-ui/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                     .anyRequest().denyAll()
         );
 

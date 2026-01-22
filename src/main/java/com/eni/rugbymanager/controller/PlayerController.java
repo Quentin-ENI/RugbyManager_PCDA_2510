@@ -4,6 +4,9 @@ import com.eni.rugbymanager.bll.PlayerService;
 import com.eni.rugbymanager.bll.impl.PlayerServiceImpl;
 import com.eni.rugbymanager.bo.Player;
 import com.eni.rugbymanager.dto.PlayerDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,12 @@ public class PlayerController {
 
     private PlayerService playerService;
 
+    /**
+     * URL to get all players
+     * @return List<Player>
+     */
+    @Operation(description = "Allows to get all players.")
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping
     public ResponseEntity<?> getPlayers() {
         List<Player> players = this.playerService.getAll();
@@ -27,6 +36,7 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<?> getPlayerById(@PathVariable("id") long playerId) {
         Player player = this.playerService.getById(playerId);
         if (player == null) {
@@ -37,6 +47,7 @@ public class PlayerController {
     }
 
     @PostMapping()
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<?> createPlayer(@Valid @RequestBody Player player) {
         Player savedPlayer = this.playerService.createPlayer(player);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlayer);
